@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BlackJack.AI" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAABAAAACAAAAAAAAAAAAAAAAAAAAAACAIAAAAAAAA=</HashCode>
+      <FileName>Player\AI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlackJack.Dealer" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Player\Dealer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlackJack.Human" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Player\Human.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlackJack.Player" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgBgAAAAAAAAAhAEAAAAAgAAAAAAEAA=</HashCode>
+      <FileName>Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
