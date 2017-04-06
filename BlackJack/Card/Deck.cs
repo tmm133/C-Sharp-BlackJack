@@ -9,7 +9,7 @@ namespace BlackJack
     public class Deck
     {
         //private List<Card> cards = new List<Card>();
-        public List<Card> cards = new List<Card>(); //Probably will change to private once I strip out testing code
+        private List<Card> cards = new List<Card>();
         public int totalCardsBeforeDealing = 0;
 
         public Deck(){}

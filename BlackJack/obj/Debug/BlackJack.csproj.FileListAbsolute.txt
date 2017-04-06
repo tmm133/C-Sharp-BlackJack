@@ -7,3 +7,14 @@ C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack\BlackJack\obj\Deb
 C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache
 C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack\BlackJack\obj\Debug\BlackJack.exe
 C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack\BlackJack\obj\Debug\BlackJack.StartScreen.resources
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.BlackJack_UI.resources
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.StartScreen.resources
+C:\Users\timay\Desktop\Programs\C#.Net\OOP\BlackJack\BlackJack_V1.5\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.Cache

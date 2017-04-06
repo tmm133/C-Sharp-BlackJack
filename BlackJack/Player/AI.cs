@@ -12,8 +12,11 @@ namespace BlackJack
 
         public AI(string AIname, int difcultyLvl)
         {
+            Random r = new Random();
+            id = r.Next(100000, 500000);
             name = AIname;
             difficultyLevel = difcultyLvl;
+            surrender(false);
         }
 
         public void makeMove()

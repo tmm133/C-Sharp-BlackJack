@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfHuman xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Human>
+    <id>1</id>
+    <name>Timmy</name>
+    <money>150</money>
+  </Human>
+  <Human>
+    <id>2</id>
+    <name>Sarah</name>
+    <money>6540</money>
+  </Human>
+  <Human>
+    <id>3</id>
+    <name>3333</name>
+    <money>13</money>
+  </Human>
+  <Human>
+    <id>4</id>
+    <name>4444</name>
+    <money>14</money>
+  </Human>
+  <Human>
+    <id>5</id>
+    <name>5555</name>
+    <money>15</money>
+  </Human>
+  <Human>
+    <id>6</id>
+    <name>6666</name>
+    <money>16</money>
+  </Human>
+</ArrayOfHuman>

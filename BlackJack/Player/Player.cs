@@ -3,19 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BlackJack
 {
     public class Player
     {
-        public int id;
+        public int id { get; set; }
         public string name { get; set; }
         public int money { get; set; }
+        [XmlIgnore]
         public List<Card> hand = new List<Card>();
+        [XmlIgnore]
+        private int bet { get; set; }
+        [XmlIgnore]
+        private bool surrendered { get; set; }
 
         public void hit(ref Deck shoe)
         {
             hand.Add(shoe.dealCard());
+        }
+
+        public void placeBet(int b)
+        {
+            bet = b;
+        }
+
+        public int getBet()
+        {
+            return bet;
         }
 
         public void stand()
@@ -23,9 +39,17 @@ namespace BlackJack
 
         }
 
-        public void doubleDown()
+        public bool doubleDown()
         {
-
+            if ((bet *= 2) <= money)
+            {
+                return true;
+            }
+            else
+            {
+                bet /= 2;
+                return false;
+            }
         }
 
         public void split()
@@ -33,9 +57,19 @@ namespace BlackJack
 
         }
 
-        public void surrender()
+        public void surrender(bool s)
         {
+            surrendered = s;
+        }
 
+        public void collectSurrender()
+        {
+            money -= (bet / 2);
+        }
+
+        public bool getSurrender()
+        {
+            return surrendered;
         }
 
         public int getTotalCardValue()
@@ -60,6 +94,16 @@ namespace BlackJack
             }
 
             return total;
+        }
+
+        public void recievePayout()
+        {
+
+        }
+
+        public void loseHand()
+        {
+            money -= bet;
         }
 
         public void clearHand()

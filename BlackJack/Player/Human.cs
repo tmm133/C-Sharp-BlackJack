@@ -8,11 +8,15 @@ namespace BlackJack
 {
     public class Human : Player
     {
+
+        public Human() { }
+
         public Human(int ID, string playerName, int cash)
         {
             id = ID;
             name = playerName;
             money = cash;
+            surrender(false);
         }
     }
 }

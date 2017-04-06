@@ -19,12 +19,12 @@ namespace BlackJack
             }
         }
 
-        public void collectChips()
+        public void collectChips(Player p)
         {
 
         }
 
-        public void payoutChips()
+        public void payoutChips(Player p)
         {
 
         }
