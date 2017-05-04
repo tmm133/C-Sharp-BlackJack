@@ -88,6 +88,7 @@
             this.CardValue4 = new System.Windows.Forms.Label();
             this.CardValue5 = new System.Windows.Forms.Label();
             this.CardValue6 = new System.Windows.Forms.Label();
+            this.btnLeaveTable = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDealer
@@ -673,12 +674,23 @@
             this.CardValue6.TabIndex = 57;
             this.CardValue6.Text = "(##)";
             // 
+            // btnLeaveTable
+            // 
+            this.btnLeaveTable.Location = new System.Drawing.Point(702, 2);
+            this.btnLeaveTable.Name = "btnLeaveTable";
+            this.btnLeaveTable.Size = new System.Drawing.Size(75, 23);
+            this.btnLeaveTable.TabIndex = 58;
+            this.btnLeaveTable.Text = "Leave Table";
+            this.btnLeaveTable.UseVisualStyleBackColor = true;
+            this.btnLeaveTable.Click += new System.EventHandler(this.btnLeaveTable_Click);
+            // 
             // BlackJack_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.btnLeaveTable);
             this.Controls.Add(this.CardValue6);
             this.Controls.Add(this.CardValue5);
             this.Controls.Add(this.CardValue4);
@@ -807,6 +819,7 @@
         private System.Windows.Forms.Label CardValue4;
         private System.Windows.Forms.Label CardValue5;
         private System.Windows.Forms.Label CardValue6;
+        private System.Windows.Forms.Button btnLeaveTable;
     }
 }
 

@@ -10,42 +10,67 @@ namespace BlackJack
     {
         private int difficultyLevel { get; set; }
 
-        public AI(string AIname, int difcultyLvl)
+        public AI(string AIname, int difcultyLvl, int ID)
         {
-            Random r = new Random();
-            id = r.Next(100000, 500000);
+            //Random r = new Random();
+            id = ID;//r.Next(100000, 500000);
             name = AIname;
             difficultyLevel = difcultyLvl;
             surrender(false);
         }
 
-        public void makeMove()
+        public void makeMove(ref Deck shoe)
         {
             switch(difficultyLevel)
             {
                 case 0:
-                    noviceAIMove();
+                    noviceAIMove(ref shoe);
                     break;
                 case 1:
-                    goodAIMove();
+                    goodAIMove(ref shoe);
                     break;
                 case 2:
-                    proAIMove();
+                    proAIMove(ref shoe);
                     break;
             }
         }
 
-        public void noviceAIMove()
+        public void makeBet(Random r)
+        {
+            switch (difficultyLevel)
+            {
+                case 0:
+                    noviceAIBet(r);
+                    break;
+                case 1:
+                    //goodAIBet();
+                    break;
+                case 2:
+                    //proAIBet();
+                    break;
+            }
+        }
+
+        public void noviceAIMove(ref Deck shoe)
+        {
+            while (getTotalCardValue() < 17)
+            {
+                hand.Add(shoe.dealCard());
+            }
+        }
+
+        public void noviceAIBet(Random r)
+        {
+            int bet = r.Next(10, money/4);
+            placeBet(bet);
+        }
+
+        public void goodAIMove(ref Deck shoe)
         {
 
         }
 
-        public void goodAIMove()
-        {
-
-        }
-
-        public void proAIMove()
+        public void proAIMove(ref Deck shoe)
         {
 
         }

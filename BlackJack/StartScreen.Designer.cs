@@ -124,9 +124,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(215, 147);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Decks Per Show";
+            this.label1.Text = "Decks Per Shoe";
             // 
             // btnNewPlyer
             // 
@@ -136,6 +136,7 @@
             this.btnNewPlyer.TabIndex = 8;
             this.btnNewPlyer.Text = "New Player";
             this.btnNewPlyer.UseVisualStyleBackColor = true;
+            this.btnNewPlyer.Click += new System.EventHandler(this.btnNewPlyer_Click);
             // 
             // lblMoney
             // 
@@ -163,6 +164,7 @@
             this.Controls.Add(this.btnStart);
             this.Name = "StartScreen";
             this.Text = "StartScreen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StartScreen_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

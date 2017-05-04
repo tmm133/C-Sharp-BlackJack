@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="Card\Card.cs" />
     <Compile Include="Chip.cs" />
+    <Compile Include="NewPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPlayer.Designer.cs">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player\AI.cs" />
     <Compile Include="Player\Dealer.cs" />
     <Compile Include="Card\Deck.cs" />
@@ -71,6 +77,9 @@
     <EmbeddedResource Include="BlackJack_UI.resx">
       <DependentUpon>BlackJack_UI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewPlayer.resx">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -83,6 +92,7 @@
     <EmbeddedResource Include="StartScreen.resx">
       <DependentUpon>StartScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="PlayerClassDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

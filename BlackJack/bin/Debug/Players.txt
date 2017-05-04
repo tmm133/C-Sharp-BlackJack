@@ -8,26 +8,6 @@
   <Human>
     <id>2</id>
     <name>Sarah</name>
-    <money>6540</money>
-  </Human>
-  <Human>
-    <id>3</id>
-    <name>3333</name>
-    <money>13</money>
-  </Human>
-  <Human>
-    <id>4</id>
-    <name>4444</name>
-    <money>14</money>
-  </Human>
-  <Human>
-    <id>5</id>
-    <name>5555</name>
-    <money>15</money>
-  </Human>
-  <Human>
-    <id>6</id>
-    <name>6666</name>
-    <money>16</money>
+    <money>6500</money>
   </Human>
 </ArrayOfHuman>

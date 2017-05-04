@@ -15,6 +15,7 @@ namespace BlackJack
     public partial class StartScreen : Form
     {
         List<Human> SavedHumans = new List<Human>();
+        bool newPlayerAdded = false;
 
         public StartScreen()
         {
@@ -48,28 +49,85 @@ namespace BlackJack
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Environment.Exit(1);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            using (var form = new BlackJack_UI(int.Parse(cboDecks.SelectedItem.ToString()), (Human)cboPlayers.SelectedItem, int.Parse(cboNumAI.SelectedItem.ToString())))
+            {
+                this.Visible = false;
 
-            BlackJack_UI b = new BlackJack_UI(int.Parse(cboDecks.SelectedItem.ToString()), (Human)cboPlayers.SelectedItem, int.Parse(cboNumAI.SelectedItem.ToString()));
-            b.Show();
+                var n = form.ShowDialog();
 
-            this.Visible = false;
+                if (n == DialogResult.OK)
+                {
+                    this.Visible = true;
+                    //Reloads Cbo with updated money values
+                    newPlayerAdded = true;
+                    cboPlayers.DataSource = null;
+                    cboPlayers.Items.Clear();
+                    newPlayerAdded = false;
+                    populatePlayerCbo();
+                    SavePlayers(SavedHumans);
+                }
+            }
         }
 
         private void cboPlayers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Human selectedHuman = (Human)cboPlayers.SelectedItem;
-            lblMoney.Text = "Current Money  $" + selectedHuman.money.ToString();
+            if (!newPlayerAdded)
+            {
+                Human selectedHuman = (Human)cboPlayers.SelectedItem;
+                lblMoney.Text = "Current Money  $" + selectedHuman.money.ToString();
+            }
         }
 
         private void initilizeCbos()
         {
             cboNumAI.SelectedIndex = 0;
             cboDecks.SelectedIndex = 0;
+        }
+
+        private void btnNewPlyer_Click(object sender, EventArgs e)
+        {
+            using (var form = new NewPlayer(SavedHumans))
+            {
+                this.Visible = false;
+
+                var n = form.ShowDialog();
+
+                if (n == DialogResult.OK)
+                {
+                    newPlayerAdded = true;
+                    cboPlayers.DataSource = null;
+                    cboPlayers.Items.Clear();
+                    newPlayerAdded = false;
+                    SavedHumans.Add(form.newHuman);
+                    populatePlayerCbo();
+                    SavePlayers(SavedHumans);
+                    this.Visible = true;
+                }
+                else
+                {
+                    this.Visible = true;
+                }            
+            }
+        }
+
+        public void SavePlayers(List<Human> list)
+        {
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Human>));
+            using (TextWriter writer = new StreamWriter("Players.txt"))
+            {
+                serializer.Serialize(writer, list);
+            }
+        }
+
+        private void StartScreen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(1);
         }
     }
 }

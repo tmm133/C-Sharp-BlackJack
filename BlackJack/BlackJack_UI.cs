@@ -14,11 +14,13 @@ namespace BlackJack
 {
     public partial class BlackJack_UI : Form
     {
+        Random rng = new Random();
         List<Card> singleDeck = new List<Card>();
         Deck shoe = new Deck();
         List<Player> Players = new List<Player>();
         Dealer dealer = new Dealer();
         List<Seat> table = new List<Seat>();
+        List<AI> AIs = new List<AI>();
         int currentSeat;
         #region PlayerControls
         List<Button> betBtns = new List<Button>();
@@ -36,7 +38,7 @@ namespace BlackJack
         public BlackJack_UI(int numOfDecks, Player p, int numOfAI)
         {
             InitializeComponent();
-           
+
             getControls();
 
             if (!File.Exists("Players.txt"))
@@ -53,15 +55,10 @@ namespace BlackJack
 
             Players.Add(p);
             sitAtTable(p);
-            createAI(numOfAI);
-            //sitAtTable(Players[1]);
-            //sitAtTable(Players[2]);
-            //sitAtTable(Players[3]);
+            createAI();
+            sitAIatTable(numOfAI);
 
             displayPlayerNameAndMoney();
-
-            //SavePlayers(Players);
-            //LoadPlayers();
         }
 
         private void getControls()
@@ -162,16 +159,19 @@ namespace BlackJack
             }
         }
 
-        private void createAI(int numOfAI)
+        private void createAI()
         {
             try
             {
-                for (int i = 0; i < numOfAI; i++)
+                AIs.Add(new AI("AI1", 0, 100001));
+                AIs.Add(new AI("AI2", 0, 100002));
+                AIs.Add(new AI("AI3", 0, 100003));
+                AIs.Add(new AI("AI4", 0, 100004));
+                AIs.Add(new AI("AI5", 0, 100005));
+                for (int i = 0; i <= 4; i++)
                 {
-                    Player p = new AI("TestAI", 1);
-                    p.money = 1000;
-                    sitAtTable(p);
-                    Players.Add(p);
+                    AI p = AIs[i];
+                    p.money = rng.Next(150, 12000); ;
                 }
             }
             catch(Exception ex)
@@ -180,24 +180,22 @@ namespace BlackJack
             }
         }
 
-        #region Testing functions
-        private void createDemoPlayers()
+        private void sitAIatTable(int numOfAI)
         {
             try
             {
-                Players.Add(new Human(1, "Timmy", 150));
-                Players.Add(new Human(2, "Sarah", 6540));
-                Players.Add(new Human(3, "3333", 13));
-                Players.Add(new Human(4, "4444", 14));
-                Players.Add(new Human(5, "5555", 15));
-                Players.Add(new Human(6, "6666", 16));
+                for (int i = 0; i < numOfAI; i++)
+                {
+                    AI p = AIs[i];
+                    sitAtTable(p);
+                    Players.Add(p);
+                }
             }
             catch (Exception ex)
             {
                 writeToErrorLog("Function: " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --- Message: " + ex.Message);
             }
         }
-        #endregion
 
         private void displayCards(bool initialDeal)
         {
@@ -262,15 +260,51 @@ namespace BlackJack
         {
             try
             {
-                Label tempLabel;
+                Label tempPlayerLabel;
+                Button tempBet;
+                Button temphitBtn;
+                Button tempstandBtn;
+                Button tempdblDwnBtn;
+                Button tempsrrndrBtn;
+                TextBox tempbetTxts;
+                ListBox templstBox;
+                Label tempcardValues;
+
+                int prevPlayerSeat = 0;
 
                 foreach (Seat s in table)
-                {
+                {             
                     if (!(s.player is Dealer) && s.player != null)
                     {
-                        tempLabel = playerLabels.First(l => l.Name.Contains(getPlayersSeatNumber(s.player).ToString()));
+                        prevPlayerSeat = getPlayersSeatNumber(s.player);
+                        tempPlayerLabel = playerLabels.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
 
-                        tempLabel.Text = s.player.name + ": $" + s.player.money.ToString();
+                        tempPlayerLabel.Text = s.player.name + ": $" + s.player.money.ToString();
+                    }
+                    //Hide buttons and such for non existing players
+                    else if (!(s.player is Dealer) && s.player == null)
+                    {
+                        prevPlayerSeat++;
+                        tempPlayerLabel = playerLabels.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempBet       = betBtns.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        temphitBtn    = hitBtns.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempstandBtn  = standBtns.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempdblDwnBtn = dblDwnBtns.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempsrrndrBtn = srrndrBtns.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempbetTxts   = betTxts.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        templstBox    = lstBoxs.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+                        tempcardValues = cardValues.First(l => l.Name.Contains(prevPlayerSeat.ToString()));
+
+
+                        tempPlayerLabel.Text = string.Empty;
+                        tempBet.Visible = false;
+                        temphitBtn.Visible = false;
+                        tempstandBtn.Visible = false;
+                        tempdblDwnBtn.Visible = false;
+                        tempsrrndrBtn.Visible = false;
+                        tempbetTxts.Enabled = false;
+                        templstBox.Enabled = false;
+                        tempcardValues.Text = string.Empty;
                     }
                 }
             }
@@ -303,6 +337,15 @@ namespace BlackJack
                     activePlayer.placeBet(playerBet);
                     setNextCurrentSeat();
                     enableDisablePlayerControls(true);
+                    if (getActivePlayer() is AI)
+                    {
+                        while (getActivePlayer() is AI)
+                        {
+                            aiBet();
+                            setNextCurrentSeat();
+                            enableDisablePlayerControls(true);
+                        }
+                    }
                     if (currentSeat == 7)
                     {
                         dealCards();
@@ -334,6 +377,15 @@ namespace BlackJack
                 }
                 enableDisablePlayerControls(false);
 
+                if (getActivePlayer() is AI)
+                {
+                    while (getActivePlayer() is AI)
+                    {
+                        aiMove();
+                        setNextCurrentSeat();
+                        enableDisablePlayerControls(false);
+                    }
+                }
                 if (currentSeat == 7)
                     dealersMove();
                 else if (hideSurr)
@@ -353,6 +405,15 @@ namespace BlackJack
                 setNextCurrentSeat();
                 enableDisablePlayerControls(false);
 
+                if (getActivePlayer() is AI)
+                {
+                    while (getActivePlayer() is AI)
+                    {
+                        aiMove();
+                        setNextCurrentSeat();
+                        enableDisablePlayerControls(false);
+                    }
+                }
                 if (currentSeat == 7)
                     dealersMove();
             }
@@ -370,6 +431,15 @@ namespace BlackJack
 
                 setNextCurrentSeat();
                 enableDisablePlayerControls(false);
+                if (getActivePlayer() is AI)
+                {
+                    while (getActivePlayer() is AI)
+                    {
+                        aiMove();
+                        setNextCurrentSeat();
+                        enableDisablePlayerControls(false);
+                    }
+                }
                 if (currentSeat == 7)
                     dealersMove();
             }
@@ -398,6 +468,15 @@ namespace BlackJack
 
                 setNextCurrentSeat();
                 enableDisablePlayerControls(false);
+                if (getActivePlayer() is AI)
+                {
+                    while (getActivePlayer() is AI)
+                    {
+                        aiMove();
+                        setNextCurrentSeat();
+                        enableDisablePlayerControls(false);
+                    }
+                }
                 if (currentSeat == 7)
                     dealersMove();
             }
@@ -417,8 +496,71 @@ namespace BlackJack
                 displayCards(false);
                 payoutAndCollect();
                 displayPlayerNameAndMoney();
+                kickPlayersFromTable();
 
                 btnNextHand.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                writeToErrorLog("Function: " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --- Message: " + ex.Message);
+            }
+        }
+
+        private void kickPlayersFromTable()
+        {
+            //If player money == 0
+            try
+            {
+                foreach (Seat s in table)
+                {
+                    if (s.player != null)
+                    {
+                        if(s.player.money == 0)
+                        {
+                            if(s.player is Human)
+                            {
+                                MessageBox.Show("You have lost all your money\nBetter luck next time");
+                                this.DialogResult = DialogResult.OK;
+                                this.Close();
+                            }
+                            else if(s.player is AI)
+                            {
+                                s.player = null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                writeToErrorLog("Function: " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --- Message: " + ex.Message);
+            }
+        }
+
+        private void aiMove()
+        {
+            try
+            {
+                AI activeAI = (AI)getActivePlayer();
+
+                activeAI.makeMove(ref shoe);
+                displayCards(true);
+            }
+            catch (Exception ex)
+            {
+                writeToErrorLog("Function: " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --- Message: " + ex.Message);
+            }
+        }
+
+        private void aiBet()
+        {
+            try
+            {
+                AI activeAI = (AI)getActivePlayer();
+
+                activeAI.makeBet(rng);
+                TextBox betTxtBox = betTxts.First(bet => bet.Name.Contains(currentSeat.ToString()));
+                betTxtBox.Text = activeAI.getBet().ToString();
             }
             catch (Exception ex)
             {
@@ -697,6 +839,7 @@ namespace BlackJack
                 enableDisablePlayerControls(true);
 
                 btnNextHand.Visible = false;
+                lblDealer.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -779,7 +922,24 @@ namespace BlackJack
 
         private void BlackJack_UI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(1);
+            Players[0].clearHand();
+            this.DialogResult = DialogResult.OK;
+            //this.Close();
+            //Environment.Exit(1);
+        }
+
+        private void btnLeaveTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Players[0].clearHand();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                writeToErrorLog("Function: " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --- Message: " + ex.Message);
+            }
         }
     }
 }
